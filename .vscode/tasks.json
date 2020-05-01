@@ -14,12 +14,12 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "tests",
+            "label": "test",
             "command": "dotnet",
             "type": "process",
             "args": [
                 "test",
-                "${workspaceFolder}/tests.sln"
+                "${workspaceFolder}/test.sln"
             ],
             "problemMatcher": "$msCompile"
         },
