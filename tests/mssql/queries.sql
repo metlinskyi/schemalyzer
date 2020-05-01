@@ -1,3 +1,3 @@
-SELECT * FROM [Entity].[Customers]
-SELECT * FROM [Entity].[CustomerContacts] 
+SELECT * FROM [A].[Entity].[Customers]
+SELECT * FROM [A].[Entity].[CustomerContacts] 
 

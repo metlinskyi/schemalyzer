@@ -7,9 +7,19 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/tests/tests.csproj",
+                "${workspaceFolder}/build.sln",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "tests",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "test",
+                "${workspaceFolder}/tests.sln"
             ],
             "problemMatcher": "$msCompile"
         },
@@ -19,7 +29,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/tests/tests.csproj",
+                "${workspaceFolder}/build.sln",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -32,7 +42,7 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/tests/tests.csproj",
+                "${workspaceFolder}/build.sln",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
