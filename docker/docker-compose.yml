@@ -1,0 +1,18 @@
+version: '3'
+
+networks:
+    localhost:
+        driver: bridge
+
+services:
+
+    mssql:
+        image: mcr.microsoft.com/mssql/server:2017-GA-ubuntu
+        container_name: mssql
+        networks:
+            - localhost
+        ports:
+            - "1433:1433"
+        environment:
+            - "ACCEPT_EULA=Y"
+            - "SA_PASSWORD=Passw0rd!"

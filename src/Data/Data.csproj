@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+      <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+      <OutDir>$(SolutionDir)bin\$(Configuration)\$(TargetFramework)\Data</OutDir>
+  </PropertyGroup>
+
+</Project>
