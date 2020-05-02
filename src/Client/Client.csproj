@@ -6,7 +6,7 @@
 
   <PropertyGroup>
       <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-      <OutDir>$(SolutionDir)bin\$(Configuration)\$(TargetFramework)\Data</OutDir>
+      <OutDir>$(SolutionDir)bin\$(Configuration)\$(TargetFramework)\Client</OutDir>
   </PropertyGroup>
 
 </Project>

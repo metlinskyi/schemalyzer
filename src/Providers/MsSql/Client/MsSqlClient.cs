@@ -3,7 +3,7 @@ using System.Data.SqlClient;
 
 namespace MsSql
 {
-    public class Class1
+    public class MsSqlClient
     {
         public void A()
         {

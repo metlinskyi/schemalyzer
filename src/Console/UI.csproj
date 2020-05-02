@@ -1,7 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\Data\Data.csproj" />
+    <ProjectReference Include="..\App\Schemalyzer.csproj" />
+    <ProjectReference Include="..\Client\Client.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
@@ -11,7 +12,7 @@
 
   <PropertyGroup>
       <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-      <OutDir>$(SolutionDir)bin\$(Configuration)\$(TargetFramework)\Console</OutDir>
+      <OutDir>$(SolutionDir)bin\$(Configuration)\$(TargetFramework)\UI</OutDir>
   </PropertyGroup>
 
 </Project>

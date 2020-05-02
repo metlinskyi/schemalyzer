@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Data.Schema.Information
+namespace Client.Schema.Information
 {
     public interface IColumnInfo : IInformationSchema
     {

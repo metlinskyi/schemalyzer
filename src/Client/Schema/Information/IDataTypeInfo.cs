@@ -1,4 +1,4 @@
-namespace Data.Schema.Information
+namespace Client.Schema.Information
 {
     public interface IDataTypeInfo : IInformationSchema
     {

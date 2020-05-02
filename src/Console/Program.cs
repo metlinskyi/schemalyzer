@@ -6,10 +6,7 @@ namespace Schemalyzer
     {
         static void Main(string[] args)
         {
-            for (int i = 0; i < args.Length; i++)
-            {
-                var arg = args[i];
-            }
+            new App.Schemalyzer(null, null);
         }
     }
 }

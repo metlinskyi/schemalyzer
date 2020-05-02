@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Data\Data.csproj" />
+    <ProjectReference Include="..\..\Client\Client.csproj" />
   </ItemGroup>
 
   <ItemGroup>

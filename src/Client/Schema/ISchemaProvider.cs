@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Data.Schema
+namespace Client.Schema
 {
     using Information;
     

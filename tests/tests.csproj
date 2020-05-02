@@ -14,7 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Data\Data.csproj" />
+    <ProjectReference Include="..\src\App\Schemalyzer.csproj" />
+    <ProjectReference Include="..\src\Client\Client.csproj" />
     <ProjectReference Include="..\src\Providers\MsSql\MsSql.csproj" />
     <ProjectReference Include="..\src\Providers\MySql\MySql.csproj" />
   </ItemGroup>
