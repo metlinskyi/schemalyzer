@@ -14,7 +14,7 @@
 
   <PropertyGroup>
       <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-      <OutDir>$(SolutionDir)bin\$(Configuration)\$(TargetFramework)\Providers\MySql</OutDir>
+      <OutDir>$(SolutionDir)bin\$(Configuration)\providers\mysql</OutDir>
   </PropertyGroup>
 
 </Project>

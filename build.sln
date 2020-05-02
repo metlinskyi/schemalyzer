@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{98A80CC5-1E5
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App", "src\App\Schemalyzer.csproj", "{62520EBF-6CF1-4822-A26D-D9C266B59A67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console", "src\Console\UI.csproj", "{1F44DE6B-DC12-4704-9167-9729FA8906E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console", "src\Console\Console.csproj", "{1F44DE6B-DC12-4704-9167-9729FA8906E6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "src\Client\Client.csproj", "{22C633E4-9612-4EDE-8755-EDACA7320750}"
 EndProject

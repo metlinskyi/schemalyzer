@@ -14,7 +14,7 @@
 
   <PropertyGroup>
       <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-      <OutDir>$(SolutionDir)bin\$(Configuration)\$(TargetFramework)\Providers\MsSql</OutDir>
+      <OutDir>$(SolutionDir)bin\$(Configuration)\providers\mssql</OutDir>
   </PropertyGroup>
 
 </Project>
