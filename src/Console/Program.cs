@@ -6,7 +6,10 @@ namespace Schemalyzer
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            for (int i = 0; i < args.Length; i++)
+            {
+                var arg = args[i];
+            }
         }
     }
 }
