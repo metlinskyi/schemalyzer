@@ -2,6 +2,7 @@ using System;
 using Xunit;
 using Client.Schema;
 using Client.Data;
+using MySql.Client;
 
 namespace tests.mysql
 {
@@ -10,7 +11,7 @@ namespace tests.mysql
         [Fact]
         public void Connect()
         {
-            new MySql.MsSqlClient();
+            new SqlClient();
             Assert.False(false, "passed");
         }     
     }

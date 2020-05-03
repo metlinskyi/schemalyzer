@@ -18,7 +18,7 @@
             "request": "launch",
             "program": "dotnet",
             "args": ["test", "${workspaceFolder}/../tests/tests.csproj"],
-            "cwd": "${workspaceFolder}/../bin",
+            "cwd": "${workspaceFolder}/",
             "stopAtEntry": false
         },
         {

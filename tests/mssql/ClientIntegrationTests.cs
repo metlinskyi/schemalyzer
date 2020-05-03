@@ -3,14 +3,14 @@ using System.Linq;
 using Xunit;
 using Client.Schema;
 using Client.Data;
-using MsSql.SqlClient;
+using MsSql.Schema.Queries;
 
 namespace tests.mssql
 {
     public class ClientIntegrationTests
     {
-        private readonly MsSql.SqlClient client = 
-            new MsSql.SqlClient("Server=tcp:localhost,1433;User Id=sa;Password=Passw0rd!");
+        private readonly MsSql.Client.SqlClient client = 
+            new MsSql.Client.SqlClient("Server=tcp:localhost,1433;User Id=sa;Password=Passw0rd!");
 
         [Fact]
         public void DatabasesQuery()

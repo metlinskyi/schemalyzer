@@ -1,9 +1,9 @@
 ﻿using System;
 using MySql.Data.MySqlClient;
 
-namespace MySql
+namespace MySql.Client
 {
-    public class MsSqlClient
+    public class SqlClient
     {
         public void A()
         {

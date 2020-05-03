@@ -1,11 +1,11 @@
-﻿namespace MsSql.Client
+﻿using System;
+using System.Data.SqlClient;
+using System.Reflection;
+using System.Linq;
+using System.IO;
+
+namespace MsSql.Client
 {
-    using System;
-    using System.Data.SqlClient;
-    using System.Reflection;
-    using System.Linq;
-    using System.IO;
-    
     public class SqlClient : IDisposable 
     {
         private readonly SqlConnection _connection;
