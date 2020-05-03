@@ -7,6 +7,11 @@
   <ItemGroup>
     <PackageReference Include="System.Data.SqlClient" Version="4.8.1" />
   </ItemGroup>
+    
+  <ItemGroup>
+    <EmbeddedResource Include="Schema/Queries/Databases.sql" />
+    <EmbeddedResource Include="Schema/Queries/Tables.sql" />
+  </ItemGroup>
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -14,7 +19,7 @@
 
   <PropertyGroup>
       <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-      <OutDir>$(SolutionDir)bin\$(Configuration)\providers\mssql</OutDir>
+      <OutDir>$(SolutionDir)..\..\..\bin\$(Configuration)\$(TargetFramework)\providers\mssql</OutDir>
   </PropertyGroup>
 
 </Project>

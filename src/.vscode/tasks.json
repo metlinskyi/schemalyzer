@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/build.sln",
+                "${workspaceFolder}/Console/Console.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "test",
-                "${workspaceFolder}/test.sln"
+                "${workspaceFolder}/../test.sln"
             ],
             "problemMatcher": "$msCompile"
         },
@@ -29,7 +29,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/build.sln",
+                "${workspaceFolder}/Console/Console.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -42,7 +42,7 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/build.sln",
+                "${workspaceFolder}/Console/Console.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],

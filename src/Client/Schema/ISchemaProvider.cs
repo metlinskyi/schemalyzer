@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Client.Schema
+﻿namespace Client.Schema
 {
+    using System;
+    using System.Collections.Generic;
     using Information;
     
     public interface ISchemaProvider
     {        
         // Gets information of databases.
-        IEnumerable<IDataBaseInfo> Databases();
+        IEnumerable<DataBaseInfo> Databases();
     }
 }

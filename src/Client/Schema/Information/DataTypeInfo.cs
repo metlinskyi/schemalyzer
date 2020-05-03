@@ -1,7 +1,6 @@
 namespace Client.Schema.Information
 {
-    public interface IRelationInfo
+    public class DataTypeInfo : InformationSchema
     {
-         
     }
 }

@@ -6,9 +6,9 @@ namespace App
 {
     public class Querylyzer 
     {
-        public IEnumerable<IRelationInfo> Parse(string query)
+        public IEnumerable<RelationInfo> Parse(string query)
         {
-            return Enumerable.Empty<IRelationInfo>();
+            return Enumerable.Empty<RelationInfo>();
         }
     }
 }
