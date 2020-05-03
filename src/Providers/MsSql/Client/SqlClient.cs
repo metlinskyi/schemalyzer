@@ -9,65 +9,52 @@ namespace MsSql.Client
     public class SqlClient : IDisposable 
     {
         private readonly SqlConnection _connection;
-
         bool _disposed = false;
-        
         public SqlClient(string connectionString)
         {
             _connection = new SqlConnection(connectionString);
         }
-
         public TQuery Execute<TQuery>(TQuery query) where TQuery : SqlQuery
         {
-            var command = new SqlCommand(null, _connection);
+            var type = typeof(TQuery).GetTypeInfo();
+            query.Query = ReadManifestData(type.Assembly, type.Name.Replace("Query", ".sql"));
+            var command = new SqlCommand(query.Query, _connection);
             _connection.Open();
             using (var reader = command.ExecuteReader())
             {
                 while (reader.Read())
                 {
-                    Console.WriteLine($"{reader[0]}:{reader[1]} ${reader[2]}");
+                    query.Binding(reader);
                 }
             }
-
-            return default;
+            return query;
         }
 
         #region IDisposable
-
         public void Dispose()
         { 
             Dispose(true);
             GC.SuppressFinalize(this);           
         }
-        
         protected virtual void Dispose(bool disposing)
         {
             if (_disposed)
                 return; 
             
-            if (disposing) {
+            if (disposing) 
+            {
                 _connection.Dispose();
             }
 
             _disposed = true;
         }
-
         ~SqlClient()
         {
             Dispose(false);
         }
-
         #endregion
-
-
         private static string ReadManifestData(Assembly assembly, string filename)
         {
-            /*
-                        var type = typeof(TSource);
-            var assembly = type.GetTypeInfo().Assembly;
-
-            _query = ReadManifestData(type, $"{type.Name.}.sql");
-            */
             var resourceName = assembly
                 .GetManifestResourceNames()
                 .First(x => x.EndsWith(filename, StringComparison.CurrentCultureIgnoreCase));

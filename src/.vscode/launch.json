@@ -6,10 +6,10 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "Console.dll",
-            "args": ["MsSql.dll"],
+            "program": "Console",
+            "args": ["../mssql/MsSql.dll","server=tcp:localhost,1433;user id=sa;password=Passw0rd!"],
             "cwd": "${workspaceFolder}/../bin/Debug/app/",
-            "console": "internalConsole",
+            "console":"internalConsole",
             "stopAtEntry": false
         },
         {
@@ -19,6 +19,7 @@
             "program": "dotnet",
             "args": ["test", "tests/tests.csproj", "--nologo"],
             "cwd": "${workspaceFolder}/../",
+            "console":"integratedTerminal",
             "stopAtEntry": false
         },
         {
@@ -26,8 +27,9 @@
             "type": "coreclr",
             "request": "launch",
             "program": "dotnet",
-            "args": ["build", "${workspaceFolder}/Providers/MsSql/MsSql.csproj"],
-            "cwd": "${workspaceFolder}/../bin",
+            "args": ["build", "Providers/MsSql/MsSql.csproj"],
+            "cwd": "${workspaceFolder}",
+            "console":"integratedTerminal",
             "stopAtEntry": false
         }
     ]

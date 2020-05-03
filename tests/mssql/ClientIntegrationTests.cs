@@ -4,6 +4,8 @@ using Xunit;
 using Client.Schema;
 using Client.Data;
 using MsSql.Schema.Queries;
+using Client.Schema.Information;
+
 
 namespace tests.mssql
 {
@@ -15,7 +17,7 @@ namespace tests.mssql
         [Fact]
         public void DatabasesQuery()
         {
-            var actual = client.Execute(new DatabasesQuery()).First();
+            var actual = client.Execute(new DatabasesQuery()).FirstOrDefault();
 
             Assert.True(actual.Name == "A" , $"The database name is {actual.Name}.");
         }
@@ -23,7 +25,7 @@ namespace tests.mssql
         [Fact]
         public void TablesQuery()
         {
-            var actual = client.Execute(new TablesQuery("A")).First();
+            var actual = client.Execute(new TablesQuery(new DataBaseInfo{ Name = "A" })).FirstOrDefault();
 
             Assert.True(actual.Name == "Contact" , $"The table name is {actual.Name}.");
         }

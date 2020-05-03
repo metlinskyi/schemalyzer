@@ -6,6 +6,12 @@ namespace MySql.Schema
 {
     public class SchemaProvider : ISchemaProvider
     {
+        private readonly Client.SqlClient _client;
+            
+        public SchemaProvider()
+        {
+        }
+
         public IEnumerable<DataBaseInfo> Databases()
         {
             throw new System.NotImplementedException();

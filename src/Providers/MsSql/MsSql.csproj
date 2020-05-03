@@ -5,12 +5,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.1" />
   </ItemGroup>
     
   <ItemGroup>
     <EmbeddedResource Include="Schema/Queries/Databases.sql" />
     <EmbeddedResource Include="Schema/Queries/Tables.sql" />
+    <EmbeddedResource Include="Data/Queries/Intersect.sql" />
+  </ItemGroup>
+    
+  <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.1" />
   </ItemGroup>
 
   <PropertyGroup>
@@ -19,7 +23,7 @@
 
   <PropertyGroup>
       <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-      <OutDir>$(SolutionDir)..\..\..\bin\$(Configuration)\app</OutDir>
+      <OutDir>$(SolutionDir)..\..\..\bin\$(Configuration)\mssql</OutDir>
   </PropertyGroup>
 
 </Project>
