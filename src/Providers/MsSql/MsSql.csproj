@@ -19,7 +19,7 @@
 
   <PropertyGroup>
       <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-      <OutDir>$(SolutionDir)..\..\..\bin\$(Configuration)\$(TargetFramework)\providers\mssql</OutDir>
+      <OutDir>$(SolutionDir)..\..\..\bin\$(Configuration)\app</OutDir>
   </PropertyGroup>
 
 </Project>

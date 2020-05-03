@@ -6,9 +6,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/../bin/Debug/netcoreapp3.1/app/Console.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/../bin",
+            "program": "Console.dll",
+            "args": ["MsSql.dll"],
+            "cwd": "${workspaceFolder}/../bin/Debug/app/",
             "console": "internalConsole",
             "stopAtEntry": false
         },
@@ -17,8 +17,8 @@
             "type": "coreclr",
             "request": "launch",
             "program": "dotnet",
-            "args": ["test", "${workspaceFolder}/../tests/tests.csproj"],
-            "cwd": "${workspaceFolder}/",
+            "args": ["test", "tests/tests.csproj", "--nologo"],
+            "cwd": "${workspaceFolder}/../",
             "stopAtEntry": false
         },
         {
@@ -27,7 +27,7 @@
             "request": "launch",
             "program": "dotnet",
             "args": ["build", "${workspaceFolder}/Providers/MsSql/MsSql.csproj"],
-            "cwd": "${workspaceFolder}/..",
+            "cwd": "${workspaceFolder}/../bin",
             "stopAtEntry": false
         }
     ]

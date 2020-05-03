@@ -13,5 +13,10 @@ namespace App
             _schemaProvider = schemaProvider;
             _dataProvider = dataProvider;
         }
+
+        public void Run()
+        {
+
+        }
     }
 }
