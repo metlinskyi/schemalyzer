@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Data.SqlClient;
 using System.Text;
+using System.Linq;
 
 namespace MsSql.Client
 {
     public abstract class SqlQuery
     {
         private string _query;
-        private IDictionary<string, string> _parametrs;
+        private IDictionary<string, string> _replaces;
+        private IDictionary<string, object> _parameters;
+        public IDictionary<string, object> Parameters => _parameters;
         public String Query 
         { 
             get
@@ -19,7 +22,7 @@ namespace MsSql.Client
             set
             {
                 var template = new StringBuilder(value);
-                foreach(var p in _parametrs)
+                foreach(var p in _replaces ?? Enumerable.Empty<KeyValuePair<string,string>>())
                 {
                     template.Replace(p.Key, p.Value);
                 }
@@ -28,15 +31,19 @@ namespace MsSql.Client
         }
         protected SqlQuery()
         {
-            _parametrs = new Dictionary<string, string>(); 
+            _replaces = new Dictionary<string, string>(); 
         }
-        public virtual void Binding(SqlDataReader reader)
+        protected virtual void Repalce(string name, string value)
         {
+            _replaces = _replaces ?? new Dictionary<string, string>();
+            _replaces.Add(name, value);
         }
-        protected virtual void Parametr<TValue>(string name, TValue value)
+        protected virtual void Parameter<TValue>(string name, TValue value)
         {
-            _parametrs.Add(name, value.ToString());
+            _parameters = _parameters ?? new Dictionary<string, object>();
+            _parameters.Add(name, value);
         }
+        public abstract void Binding(SqlDataReader reader);
     }
 
     public abstract class SqlQuery<TResult> : SqlQuery, IEnumerable<TResult> where TResult : class

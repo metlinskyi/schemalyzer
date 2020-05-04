@@ -3,11 +3,11 @@ using Client.Schema.Information;
 
 namespace MsSql.Schema.Queries
 {
-    public class DatabasesQuery : MsSql.Client.SqlQuery<DataBaseInfo>
+    public class DatabasesQuery : MsSql.Client.SqlQuery<DatabaseInfo>
     {
-        protected override DataBaseInfo Mapping(SqlDataReader reader)
+        protected override DatabaseInfo Mapping(SqlDataReader reader)
         {
-            return new DataBaseInfo
+            return new DatabaseInfo
             {
                 Name = reader["name"].ToString()
             };

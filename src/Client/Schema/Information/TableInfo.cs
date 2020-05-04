@@ -4,6 +4,7 @@ namespace Client.Schema.Information
 
     public class TableInfo : InformationSchema
     {
-       public IEnumerable<ColumnInfo> Columns { get; set; } 
+        public DatabaseInfo Database { get; set; } 
+        public IEnumerable<ColumnInfo> Columns { get; set; } 
     }
 }

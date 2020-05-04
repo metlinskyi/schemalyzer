@@ -10,7 +10,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Schema/Queries/Databases.sql" />
     <EmbeddedResource Include="Schema/Queries/Tables.sql" />
-    <EmbeddedResource Include="Data/Queries/Intersect.sql" />
+    <EmbeddedResource Include="Schema/Queries/Columns.sql" />
+    <EmbeddedResource Include="Data/Queries/Except.sql" />
   </ItemGroup>
     
   <ItemGroup>

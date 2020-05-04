@@ -3,6 +3,8 @@ using System.Data.SqlClient;
 using System.Reflection;
 using System.Linq;
 using System.IO;
+using System.Collections.Generic;
+using System.Collections;
 
 namespace MsSql.Client
 {
@@ -16,9 +18,16 @@ namespace MsSql.Client
         }
         public TQuery Execute<TQuery>(TQuery query) where TQuery : SqlQuery
         {
+            // gets the text of query
             var type = typeof(TQuery).GetTypeInfo();
             query.Query = ReadManifestData(type.Assembly, type.Name.Replace("Query", ".sql"));
+            // gets the sql command and parametrs
             var command = new SqlCommand(query.Query, _connection);
+            foreach(var p in query.Parameters ?? Enumerable.Empty<KeyValuePair<string,object>>())
+            {
+                command.Parameters.Add(new SqlParameter(p.Key, p.Value));
+            }
+            // execute
             _connection.Open();
             using (var reader = command.ExecuteReader())
             {

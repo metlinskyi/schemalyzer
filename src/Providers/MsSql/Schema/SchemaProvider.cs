@@ -12,7 +12,7 @@ namespace MsSql.Schema.Queries
         {
             _client = new MsSql.Client.SqlClient(connectionString);
         }
-        public IEnumerable<DataBaseInfo> Databases()
+        public IEnumerable<DatabaseInfo> Databases()
         {
             foreach(var db in _client.Execute(new DatabasesQuery()))
             {

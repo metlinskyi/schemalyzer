@@ -14,7 +14,7 @@ namespace MsSql.Data
         }
         public bool IsIntersect(ColumnInfo fk, ColumnInfo pk)
         {
-            _client.Execute(new IntersectQuery(fk, pk));
+            _client.Execute(new ExceptQuery(fk, pk));
 
             return false;
         }

@@ -5,16 +5,19 @@ namespace MsSql.Schema.Queries
 {
     public class TablesQuery : MsSql.Client.SqlQuery<TableInfo>
     {
-        public TablesQuery(DataBaseInfo db)
+        private readonly DatabaseInfo _database;
+        public TablesQuery(DatabaseInfo database)
         {
-            Parametr("/*DATABASE_NAME.*/", db.Name + ".");
+            _database = database;
+            
+            Repalce("/*DATABASE_NAME.*/", _database.Name + ".");
         }
-
         protected override TableInfo Mapping(SqlDataReader reader)
         {
             return new TableInfo
             {
-                Name = reader["TABLE_NAME"].ToString()
+                Database = _database,
+                Name = $"{reader["TABLE_SCHEMA"]}.{reader["TABLE_NAME"]}"
             };
         }
     }
