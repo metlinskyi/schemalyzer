@@ -31,8 +31,6 @@ namespace Console
 
             var assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(provider.FullName);
 
-            assembly.GetReferencedAssemblies();
-
             foreach(var filename in provider.Directory.GetFiles("*.dll").Select(x=>x.FullName))
             {
                 if(AssemblyLoadContext.Default.Assemblies.Any(x=>x.GetName().FullName == AssemblyName.GetAssemblyName(filename).FullName))
@@ -41,7 +39,7 @@ namespace Console
                 }
                 try
                 {
-                    AssemblyLoadContext.Default.LoadFromAssemblyPath(filename);
+                    //AssemblyLoadContext.Default.LoadFromAssemblyPath(filename);
                 }
                 catch
                 {

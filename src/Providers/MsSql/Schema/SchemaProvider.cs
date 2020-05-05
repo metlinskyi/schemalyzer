@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Client.Schema;
 using Client.Schema.Information;
 
@@ -16,11 +17,11 @@ namespace MsSql.Schema.Queries
         {
             foreach(var db in _client.Execute(new DatabasesQuery()))
             {
-                db.Tables = _client.Execute(new TablesQuery(db));
+                db.Tables = _client.Execute(new TablesQuery(db)).ToArray();
 
                 foreach(var table in db.Tables)
                 {
-                    table.Columns = _client.Execute(new ColumnsQuery(table));        
+                    table.Columns = _client.Execute(new ColumnsQuery(table)).ToArray();        
                 }
 
                 yield return db;

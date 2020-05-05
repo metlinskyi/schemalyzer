@@ -1,6 +1,6 @@
 using Client.Schema;
 using Client.Data;
-
+using System.Linq;
 namespace App
 {
     public class Schemalyzer
@@ -14,7 +14,7 @@ namespace App
         }
         public void Run()
         {
-            var databases = _schemaProvider.Databases();
+            var databases = _schemaProvider.Databases().ToArray();
         }
     }
 }

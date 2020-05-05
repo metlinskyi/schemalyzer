@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Data;
 using System.Reflection;
 using System.Linq;
 using System.IO;
@@ -28,7 +29,10 @@ namespace MsSql.Client
                 command.Parameters.Add(new SqlParameter(p.Key, p.Value));
             }
             // execute
-            _connection.Open();
+            if(_connection.State == ConnectionState.Closed)
+            {
+                _connection.Open();
+            }
             using (var reader = command.ExecuteReader())
             {
                 while (reader.Read())
