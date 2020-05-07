@@ -9,6 +9,8 @@ namespace MsSql.Client
 {
     public abstract class SqlQuery
     {
+        private const string DEBUG_BEGIN = "#DEBUG";
+        private const string DEBUG_END = "#END";     
         private string _query;
         private IDictionary<string, string> _replaces;
         private IDictionary<string, object> _parameters;
@@ -22,6 +24,15 @@ namespace MsSql.Client
             set
             {
                 var template = new StringBuilder(value);
+                var begin = value.IndexOf(DEBUG_BEGIN);
+                if(begin > -1)
+                {
+                    var end = value.IndexOf(DEBUG_END) + DEBUG_END.Length;
+                    if(end > begin)
+                    {
+                        template.Remove(begin, end - begin);
+                    }
+                }
                 foreach(var p in _replaces ?? Enumerable.Empty<KeyValuePair<string,string>>())
                 {
                     template.Replace(p.Key, p.Value);

@@ -3,7 +3,7 @@ using System.Linq;
 using Client.Schema;
 using Client.Schema.Information;
 
-namespace MsSql.Schema.Queries
+namespace MsSql.Schema
 {
     using Queries;
     public class SchemaProvider : ISchemaProvider
@@ -15,13 +15,13 @@ namespace MsSql.Schema.Queries
         }
         public IEnumerable<DatabaseInfo> Databases()
         {
-            foreach(var db in _client.Execute(new DatabasesQuery()))
+            foreach(var db in _client.Execute(new DatabasesQuery()).Select(x => new DatabaseInfo{ Name = x }))
             {
-                db.Tables = _client.Execute(new TablesQuery(db)).ToArray();
+                var schema = _client.Execute(new SchemaQuery(db.Name)).ToArray();
 
                 foreach(var table in db.Tables)
                 {
-                    table.Columns = _client.Execute(new ColumnsQuery(table)).ToArray();        
+;        
                 }
 
                 yield return db;

@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Linq;
 using System.IO;
 using System.Collections.Generic;
-using System.Collections;
 
 namespace MsSql.Client
 {
