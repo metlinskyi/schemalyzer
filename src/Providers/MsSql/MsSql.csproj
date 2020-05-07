@@ -12,6 +12,7 @@
     <EmbeddedResource Include="Schema/Queries/Schema.sql" />
     <EmbeddedResource Include="Schema/Queries/Routine.sql" />
     <EmbeddedResource Include="Schema/Queries/Script.sql" />
+    <EmbeddedResource Include="Data/Queries/Except.sql" />
   </ItemGroup>
     
   <ItemGroup>
