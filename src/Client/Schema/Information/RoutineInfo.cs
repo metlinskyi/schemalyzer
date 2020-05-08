@@ -1,6 +1,6 @@
 namespace Client.Schema.Information
 {
-    public class ViewInfo : EntityInfo
+    public class RoutineInfo : InformationSchema
     {
         public string Source { get; set; }
     }
