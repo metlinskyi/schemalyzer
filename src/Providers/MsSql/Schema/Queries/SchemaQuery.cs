@@ -7,7 +7,7 @@ namespace MsSql.Schema.Queries
     {
         public SchemaQuery(string database)
         {
-            Repalce("[master]", $"[{database}]");
+            Repalce("[master]", database.ToDatabaseName());
         }
         protected override SchemaEntity Mapping(SqlDataReader reader)
         {

@@ -6,7 +6,7 @@ namespace MsSql.Schema.Queries
     {
         public RoutineQuery(string database)
         {
-            Repalce("[master]", $"[{database}]");
+            Repalce("[master]", database.ToDatabaseName());
         }
         protected override RoutineEntity Mapping(SqlDataReader reader)
         {

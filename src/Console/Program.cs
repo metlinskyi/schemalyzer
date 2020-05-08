@@ -65,7 +65,6 @@ namespace Console
                 WriteLine();
                 Write($"{status.ToString()}...");
             }
-
             if(percentage == 100)
             {
                 OK();

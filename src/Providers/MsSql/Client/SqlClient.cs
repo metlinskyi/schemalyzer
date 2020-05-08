@@ -32,12 +32,19 @@ namespace MsSql.Client
             {
                 _connection.Open();
             }
-            using (var reader = command.ExecuteReader())
+            try
             {
-                while (reader.Read())
+                using (var reader = command.ExecuteReader())
                 {
-                    query.Binding(reader);
+                    while (reader.Read())
+                    {
+                        query.Binding(reader);
+                    }
                 }
+            }
+            catch(System.Data.SqlClient.SqlException e)
+            {
+                throw new Exception(query.Query, e);
             }
             return query;
         }

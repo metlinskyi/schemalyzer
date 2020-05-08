@@ -6,7 +6,7 @@ namespace MsSql.Schema.Queries
     {
         public ScriptQuery(string database, string objname)
         {
-            Repalce("[master]", $"[{database}]");
+            Repalce("[master]", database.ToDatabaseName());
             Parameter("@objname", objname);
         }       
         public override string ToString()

@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace Client.Schema.Information
 {
     public class ColumnInfo : InformationSchema
