@@ -9,7 +9,7 @@
             "program": "Console",
             "args": ["../mssql/MsSql.dll","server=tcp:localhost,1433;user id=sa;password=Passw0rd!"],
             "cwd": "${workspaceFolder}/../bin/Debug/app/",
-            "console":"internalConsole",
+            "console":"externalTerminal",
             "stopAtEntry": false
         },
         {
