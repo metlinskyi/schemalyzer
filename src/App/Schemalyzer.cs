@@ -13,6 +13,7 @@ namespace App
         {
             Udefinded,
             GettingSchema,
+            AnalysingData,
             AnalysingSchema,
         } 
         private readonly ISchemaProvider _schemaProvider;
@@ -28,15 +29,15 @@ namespace App
 
             var databases = _schemaProvider.Databases().ToArray();
 
-            progress(Status.GettingSchema, 100);
-
-            progress(Status.AnalysingSchema, 0);
-
             var types = databases
                 .SelectMany(db => db.Tables.SelectMany(t => t.Columns))
-                .GroupBy(c=>c.DataType.Name)
-                .Where(x=>x.Count() > 1)
-                .ToDictionary(x=>x.Key, x=>x.ToArray());
+                .GroupBy(c => c.DataType.Name)
+                .Where(x => x.Count() > 1)
+                .ToDictionary(x => x.Key, x=>x.ToArray());
+
+            progress(Status.GettingSchema, 100);
+
+            progress(Status.AnalysingData, 0);
 
             var pairs = new List<Tuple<ColumnInfo, ColumnInfo>>();    
 
@@ -44,7 +45,7 @@ namespace App
             {
                 foreach(var fk in group.Value)
                 {
-                    foreach(var pk in group.Value)
+                    foreach(var pk in group.Value.Where(x=> !object.Equals(x, fk)))
                     {
                         if(_dataProvider.IsIntersect(fk, pk))
                         {
@@ -53,6 +54,10 @@ namespace App
                     }
                 }
             }
+
+            progress(Status.AnalysingData, 100);
+
+            progress(Status.AnalysingSchema, 0);
 
             progress(Status.AnalysingSchema, 100);
 
