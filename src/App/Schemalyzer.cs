@@ -15,13 +15,15 @@ namespace App
             GettingSchema,
             AnalysingData,
             AnalysingSchema,
-        } 
+        }
         private readonly ISchemaProvider _schemaProvider;
         private readonly IDataProvider _dataProvider;
+        private readonly Querylyzer _querylyzer;
         public Schemalyzer(ISchemaProvider schemaProvider, IDataProvider dataProvider)
         {
             _schemaProvider = schemaProvider;
             _dataProvider = dataProvider;
+            _querylyzer = new Querylyzer();
         }
         public Schemalyzer Run(Action<Schemalyzer.Status, byte> progress)
         {
@@ -33,7 +35,7 @@ namespace App
                 .SelectMany(db => db.Tables.SelectMany(t => t.Columns))
                 .GroupBy(c => c.DataType.Name)
                 .Where(x => x.Count() > 1)
-                .ToDictionary(x => x.Key, x=>x.ToArray());
+                .ToDictionary(x => x.Key, x => x.ToArray());
 
             progress(Status.GettingSchema, 100);
 
@@ -45,7 +47,7 @@ namespace App
             {
                 foreach(var fk in group.Value)
                 {
-                    foreach(var pk in group.Value.Where(x=> !object.Equals(x, fk)))
+                    foreach(var pk in group.Value.Where(x => !object.Equals(x, fk)))
                     {
                         if(_dataProvider.IsIntersect(fk, pk))
                         {
@@ -58,6 +60,18 @@ namespace App
             progress(Status.AnalysingData, 100);
 
             progress(Status.AnalysingSchema, 0);
+            
+            var views = databases
+                .SelectMany(db => db.Views)
+                .Where(x => !string.IsNullOrEmpty(x.Source))
+                .Select(_querylyzer.Parse);
+
+            var routines = databases
+                .SelectMany(db => db.Routines)
+                .Where(x => !string.IsNullOrEmpty(x.Source))
+                .Select(_querylyzer.Parse);
+
+            var relations = views.Union(routines).ToArray();
 
             progress(Status.AnalysingSchema, 100);
 
