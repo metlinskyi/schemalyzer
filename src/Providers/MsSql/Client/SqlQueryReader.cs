@@ -5,12 +5,12 @@ namespace MsSql.Client
     public class SqlQueryReader : ISqlQueryReader
     {
         private readonly IManifestResourceReader manifestResourceReader;
+        public SqlQueryReader() : this(new ManifestResourceReader())
+        {
+        }
         public SqlQueryReader(IManifestResourceReader manifestResourceReader)
         {
             this.manifestResourceReader = manifestResourceReader;
-        }
-        public SqlQueryReader() : this(new ManifestResourceReader())
-        {
         }
         public string Read<TQuery>() where TQuery : SqlQuery
         {

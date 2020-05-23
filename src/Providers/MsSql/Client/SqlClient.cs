@@ -51,7 +51,6 @@ namespace MsSql.Client
             }
             return query;
         }
-
         #region IDisposable
         public void Dispose()
         { 
@@ -67,7 +66,6 @@ namespace MsSql.Client
             {
                 connection.Dispose();
             }
-
             disposed = true;
         }
         ~SqlClient()
