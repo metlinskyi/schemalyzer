@@ -1,14 +1,14 @@
-using System.Data.SqlClient;
+using MsSql.Client;
 
 namespace MsSql.Schema.Queries
 {
-    public class RoutineQuery : MsSql.Client.SqlQuery<RoutineEntity>
+    public class RoutineQuery : SqlQuery<RoutineEntity>
     {
         public RoutineQuery(string database)
         {
             Repalce("[master]", database.ToDatabaseName());
         }
-        protected override RoutineEntity Mapping(SqlDataReader reader)
+        protected override RoutineEntity Mapping(ISqlDataReader reader)
         {
             return new RoutineEntity
             {

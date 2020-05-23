@@ -54,7 +54,7 @@ namespace MsSql.Client
             _parameters = _parameters ?? new Dictionary<string, object>();
             _parameters.Add(name, value);
         }
-        public abstract void Binding(SqlDataReader reader);
+        public abstract void Binding(ISqlDataReader reader);
     }
 
     public abstract class SqlQuery<TResult> : SqlQuery, IEnumerable<TResult> where TResult : class
@@ -74,10 +74,10 @@ namespace MsSql.Client
             return _result.GetEnumerator();
         }
         #endregion
-        public override void Binding(SqlDataReader reader)
+        public override void Binding(ISqlDataReader reader)
         {
             _result.Add(Mapping(reader));
         }
-        protected abstract TResult Mapping(SqlDataReader reader);
+        protected abstract TResult Mapping(ISqlDataReader reader);
     }
 }

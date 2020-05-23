@@ -1,15 +1,15 @@
 using System;
-using System.Data.SqlClient;
+using MsSql.Client;
 
 namespace MsSql.Schema.Queries
 {
-    public class SchemaQuery : MsSql.Client.SqlQuery<SchemaEntity>
+    public class SchemaQuery : SqlQuery<SchemaEntity>
     {
         public SchemaQuery(string database)
         {
             Repalce("[master]", database.ToDatabaseName());
         }
-        protected override SchemaEntity Mapping(SqlDataReader reader)
+        protected override SchemaEntity Mapping(ISqlDataReader reader)
         {
             return new SchemaEntity
             {

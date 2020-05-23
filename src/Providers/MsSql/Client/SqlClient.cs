@@ -1,44 +1,47 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Data;
-using System.Reflection;
 using System.Linq;
-using System.IO;
 using System.Collections.Generic;
 
 namespace MsSql.Client
 {
     public class SqlClient : IDisposable 
     {
-        private readonly SqlConnection _connection;
-        bool _disposed = false;
-        public SqlClient(string connectionString)
+        private readonly SqlConnection connection;
+        private readonly ISqlQueryReader queryReader;
+        private bool disposed = false;
+        public SqlClient(string connectionString) : this(connectionString, new SqlQueryReader())
         {
-            _connection = new SqlConnection(connectionString);
+        }
+        public SqlClient(string connectionString, ISqlQueryReader queryReader)
+        {            
+            this.connection = new SqlConnection(connectionString);
+            this.queryReader = queryReader;
         }
         public TQuery Execute<TQuery>(TQuery query) where TQuery : SqlQuery
         {
             // gets the text of query
-            var type = typeof(TQuery).GetTypeInfo();
-            query.Query = ReadManifestData(type.Assembly, type.Name.Replace("Query", ".sql"));
+            query.Query = this.queryReader.Read<TQuery>();
             // gets the sql command and parametrs
-            var command = new SqlCommand(query.Query, _connection);
+            var command = new SqlCommand(query.Query, connection);
             foreach(var p in query.Parameters ?? Enumerable.Empty<KeyValuePair<string,object>>())
             {
                 command.Parameters.Add(new SqlParameter(p.Key, p.Value));
             }
             // execute
-            if(_connection.State == ConnectionState.Closed)
+            if(connection.State == ConnectionState.Closed)
             {
-                _connection.Open();
+                connection.Open();
             }
             try
             {
                 using (var reader = command.ExecuteReader())
                 {
+                    var wrapper = new SqlDataReaderWrapper(reader);
                     while (reader.Read())
                     {
-                        query.Binding(reader);
+                        query.Binding(wrapper);
                     }
                 }
             }
@@ -57,38 +60,21 @@ namespace MsSql.Client
         }
         protected virtual void Dispose(bool disposing)
         {
-            if (_disposed)
+            if (disposed)
                 return; 
             
             if (disposing) 
             {
-                _connection.Dispose();
+                connection.Dispose();
             }
 
-            _disposed = true;
+            disposed = true;
         }
         ~SqlClient()
         {
             Dispose(false);
         }
         #endregion
-        private static string ReadManifestData(Assembly assembly, string filename)
-        {
-            var resourceName = assembly
-                .GetManifestResourceNames()
-                .First(x => x.EndsWith(filename, StringComparison.CurrentCultureIgnoreCase));
 
-            using (var stream = assembly.GetManifestResourceStream(resourceName))
-            {
-                if (stream == null)
-                {
-                    throw new InvalidOperationException("Could not load manifest resource stream.");
-                }
-                using (var reader = new StreamReader(stream))
-                {
-                    return reader.ReadToEnd();
-                }
-            }
-        }
     }
 }

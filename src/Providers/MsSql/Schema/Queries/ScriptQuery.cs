@@ -1,8 +1,8 @@
-using System.Data.SqlClient;
+using MsSql.Client;
 
 namespace MsSql.Schema.Queries
 {
-    public class ScriptQuery : MsSql.Client.SqlQuery<string>
+    public class ScriptQuery : SqlQuery<string>
     {
         public ScriptQuery(string database, string objname)
         {
@@ -13,7 +13,7 @@ namespace MsSql.Schema.Queries
         {
             return string.Join(string.Empty, this);
         }
-        protected override string Mapping(SqlDataReader reader)
+        protected override string Mapping(ISqlDataReader reader)
         {
             return reader[0].ToString();
         }

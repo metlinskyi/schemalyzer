@@ -1,9 +1,9 @@
-using System.Data.SqlClient;
+using MsSql.Client;
 using Client.Schema.Information;
 
 namespace MsSql.Data.Queries
 {
-    public class ExceptQuery : MsSql.Client.SqlQuery<string>
+    public class ExceptQuery : SqlQuery<string>
     {
         public ExceptQuery(ColumnInfo fk, ColumnInfo pk)
         {
@@ -14,7 +14,7 @@ namespace MsSql.Data.Queries
             Repalce("[PK_TABLE]",   pk.GetEntityName());
             Repalce("[PK_COLUMN]",  pk.GetName());
         }
-        protected override string Mapping(SqlDataReader reader)
+        protected override string Mapping(ISqlDataReader reader)
         {
             return reader[0].ToString();
         }
