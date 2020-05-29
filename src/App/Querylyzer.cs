@@ -32,6 +32,7 @@ namespace App
 
             for(int i = 0; i < matches.Count; i++)
             {
+                /*
                 match = matches[i];
                 x = match.Index;
                 y = i > matches.Count ? source.Length : matches[i+1].Index;
@@ -63,7 +64,7 @@ namespace App
                     }
                     break;
                 }
-
+                */
                 yield return new RelationInfo();
             }
         }

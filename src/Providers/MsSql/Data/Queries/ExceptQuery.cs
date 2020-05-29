@@ -14,9 +14,9 @@ namespace MsSql.Data.Queries
             Repalce("[PK_TABLE]",   pk.GetEntityName());
             Repalce("[PK_COLUMN]",  pk.GetName());
         }
-        protected override string Mapping(ISqlDataReader reader)
+        protected override void Mapping(ISqlRowMapper<string> mapper)
         {
-            return reader[0].ToString();
+            mapper.For().From(0);
         }
     }
 }

@@ -13,9 +13,9 @@ namespace MsSql.Schema.Queries
         {
             return string.Join(string.Empty, this);
         }
-        protected override string Mapping(ISqlDataReader reader)
+        protected override void Mapping(ISqlRowMapper<string> mapper)
         {
-            return reader[0].ToString();
+            mapper.For().From(0);
         }
     }
 }

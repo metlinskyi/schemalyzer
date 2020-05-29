@@ -1,82 +1,84 @@
-using System;
 using System.Collections.Generic;
 using System.Collections;
-using System.Text;
 using System.Linq;
 
 namespace MsSql.Client
 {
+    using Internal;
     public abstract class SqlQuery
-    {
-        private const string DEBUG_BEGIN = "#DEBUG";
-        private const string DEBUG_END = "#END";     
-        private string _query;
-        private IDictionary<string, string> _replaces;
-        private IDictionary<string, object> _parameters;
-        public IDictionary<string, object> Parameters => _parameters;
-        public String Query 
+    { 
+        private string query;
+        private IDictionary<string, string> replaces;
+        private IDictionary<string, object> parameters;
+        internal IDictionary<string, object> Parameters => parameters;
+        public string Query 
         { 
             get
             {
-                return _query;
+                return query;
             } 
-            set
+            internal set
             {
-                var template = new StringBuilder(value);
-                var begin = value.IndexOf(DEBUG_BEGIN);
-                if(begin > -1)
-                {
-                    var end = value.IndexOf(DEBUG_END) + DEBUG_END.Length;
-                    if(end > begin)
-                    {
-                        template.Remove(begin, end - begin);
-                    }
-                }
-                foreach(var p in _replaces ?? Enumerable.Empty<KeyValuePair<string,string>>())
+                var template = SqlQueryHelper.GetTemplate(value);
+                foreach(var p in replaces ?? Enumerable.Empty<KeyValuePair<string,string>>())
                 {
                     template.Replace(p.Key, p.Value);
                 }
-                _query = template.ToString();
+                query = template.ToString();
             } 
         }
+        public int Count { get; internal set; }
         protected SqlQuery()
         {
-            _replaces = new Dictionary<string, string>(); 
         }
         protected virtual void Repalce(string name, string value)
         {
-            _replaces = _replaces ?? new Dictionary<string, string>();
-            _replaces.Add(name, value);
+            replaces = replaces ?? new Dictionary<string, string>();
+            replaces.Add(name, value);
         }
         protected virtual void Parameter<TValue>(string name, TValue value)
         {
-            _parameters = _parameters ?? new Dictionary<string, object>();
-            _parameters.Add(name, value);
+            parameters =  parameters ?? new Dictionary<string, object>();
+            parameters.Add(name, value);
         }
-        public abstract void Binding(ISqlDataReader reader);
+        internal abstract void Initializing(ISqlDataBinder mapper);
+        internal abstract void Binding(ISqlDataReader reader);
+        internal abstract void Ending();
     }
 
-    public abstract class SqlQuery<TResult> : SqlQuery, IEnumerable<TResult> where TResult : class
+    public abstract class SqlQuery<TEntity> : SqlQuery, IEnumerable<TEntity> 
     {
-        private readonly IList<TResult> _result;
+        private readonly IList<TEntity> entities;
+        private ISqlDataBinder<TEntity> binder;
         protected SqlQuery()
         {
-            _result = new List<TResult>();
+            entities = new List<TEntity>();
         }
         #region IEnumerator<>
-        public IEnumerator<TResult> GetEnumerator()
+        public IEnumerator<TEntity> GetEnumerator()
         {
-            return _result.GetEnumerator();
+            return entities.GetEnumerator();
         }
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return _result.GetEnumerator();
+            return entities.GetEnumerator();
         }
         #endregion
-        public override void Binding(ISqlDataReader reader)
+        internal override void Initializing(ISqlDataBinder binder)
         {
-            _result.Add(Mapping(reader));
+            this.binder = binder.For<TEntity>(Mapping);
         }
-        protected abstract TResult Mapping(ISqlDataReader reader);
+        internal override void Binding(ISqlDataReader reader)
+        {
+            entities.Add(binder.GetEntity(reader));
+        }
+        internal override void Ending()
+        {
+            Result(this);
+        }
+        protected virtual void Result(IEnumerable<TEntity> entities)
+        {
+        }
+        protected abstract void Mapping(ISqlRowMapper<TEntity> mapper);
     }
 }

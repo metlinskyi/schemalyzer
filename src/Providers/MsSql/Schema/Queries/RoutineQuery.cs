@@ -8,14 +8,12 @@ namespace MsSql.Schema.Queries
         {
             Repalce("[master]", database.ToDatabaseName());
         }
-        protected override RoutineEntity Mapping(ISqlDataReader reader)
+        protected override void Mapping(ISqlRowMapper<RoutineEntity> mapper)
         {
-            return new RoutineEntity
-            {
-                ROUTINE_SCHEMA= reader["ROUTINE_SCHEMA"].ToString(),
-                ROUTINE_NAME = reader["ROUTINE_NAME"].ToString(),
-                ROUTINE_TYPE = reader["ROUTINE_TYPE"].ToString()
-            };
+            mapper.For(() => new RoutineEntity());
+            mapper.For(x => x.ROUTINE_SCHEMA);
+            mapper.For(x => x.ROUTINE_NAME);
+            mapper.For(x => x.ROUTINE_TYPE);
         }
     }
 }

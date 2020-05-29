@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Console",
+            "name": "Debug",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
@@ -13,7 +13,7 @@
             "stopAtEntry": false
         },
         {
-            "name": "xUnit",
+            "name": "Tests",
             "type": "coreclr",
             "request": "launch",
             "program": "dotnet",

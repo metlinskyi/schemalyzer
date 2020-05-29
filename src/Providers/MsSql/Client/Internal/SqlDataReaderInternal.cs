@@ -1,11 +1,12 @@
+using System;
 using System.Data.SqlClient;
 
-namespace MsSql.Client
+namespace MsSql.Client.Internal
 {
-    public class SqlDataReaderWrapper : ISqlDataReader
+    internal class SqlDataReaderInternal : ISqlDataReader
     {
         private readonly SqlDataReader sqlDataReader;
-        public SqlDataReaderWrapper(SqlDataReader sqlDataReader)
+        public SqlDataReaderInternal(SqlDataReader sqlDataReader)
         {
             this.sqlDataReader = sqlDataReader;
         }

@@ -4,9 +4,9 @@ namespace MsSql.Schema.Queries
 {
     public class DatabasesQuery : SqlQuery<string>
     {
-        protected override string Mapping(ISqlDataReader reader)
+        protected override void Mapping(ISqlRowMapper<string> mapper)
         {
-            return reader["name"].ToString();
+            mapper.For().From("name");
         }
     }
 }

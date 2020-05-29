@@ -62,6 +62,8 @@ namespace MsSql.Schema
                     {
                         x.Source = _client.Execute(new ScriptQuery(db.Name, x.Name)).ToString();
 
+                        var references = _client.Execute(new ReferencesQuery(db.Name, x.Name));
+
                         return x;
                     })
                     .ToArray(); 
@@ -70,6 +72,8 @@ namespace MsSql.Schema
                     .Select(x =>
                     { 
                         var name = GetName(x.ROUTINE_SCHEMA, x.ROUTINE_NAME);
+
+                        var references = _client.Execute(new ReferencesQuery(db.Name, name));
 
                         return new RoutineInfo
                         { 

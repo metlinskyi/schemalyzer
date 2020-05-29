@@ -1,5 +1,6 @@
 using System;
 using MsSql.Client;
+using System.Collections.Generic;
 
 namespace MsSql.Schema.Queries
 {
@@ -9,20 +10,21 @@ namespace MsSql.Schema.Queries
         {
             Repalce("[master]", database.ToDatabaseName());
         }
-        protected override SchemaEntity Mapping(ISqlDataReader reader)
+        protected override void Mapping(ISqlRowMapper<SchemaEntity> mapper)
         {
-            return new SchemaEntity
-            {
-                TABLE_SCHEMA = reader["TABLE_SCHEMA"].ToString(),
-                TABLE_NAME = reader["TABLE_NAME"].ToString(),
-                TABLE_TYPE = reader["TABLE_TYPE"].ToString(),
-                COLUMN_NAME = reader["COLUMN_NAME"].ToString(),
-                IS_NULLABLE = Convert(reader["IS_NULLABLE"].ToString()),
-                DATA_TYPE = reader["DATA_TYPE"].ToString(),
-                CHARACTER_MAXIMUM_LENGTH = reader["CHARACTER_MAXIMUM_LENGTH"].ToString(),
-                CONSTRAINT_TYPE = reader["CONSTRAINT_TYPE"].ToString(),
-                CONSTRAINT_NAME = reader["CONSTRAINT_NAME"].ToString()
-            };
+            mapper.For(() => new SchemaEntity());
+            mapper.For(x => x.TABLE_SCHEMA);   
+            mapper.For(x => x.TABLE_NAME);  
+            mapper.For(x => x.TABLE_TYPE);     
+            mapper.For(x => x.COLUMN_NAME);       
+            mapper.For(x => x.IS_NULLABLE).As(value => Convert(value.ToString()));
+            mapper.For(x => x.DATA_TYPE);
+            mapper.For(x => x.CHARACTER_MAXIMUM_LENGTH);
+            mapper.For(x => x.CONSTRAINT_TYPE);
+            mapper.For(x => x.CONSTRAINT_NAME);
+        }
+        protected override void Result(IEnumerable<SchemaEntity> entities)
+        {
         }
         private static bool Convert(string value, string trueValue = "YES", string falseValue = "NO")
         {

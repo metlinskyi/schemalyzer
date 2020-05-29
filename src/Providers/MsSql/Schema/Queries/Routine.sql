@@ -1,6 +1,7 @@
 USE [master]
 
 SELECT 
+
     ROUTINE_SCHEMA,
     ROUTINE_NAME,
     ROUTINE_TYPE

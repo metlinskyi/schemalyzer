@@ -2,7 +2,7 @@ using System.Reflection;
 
 namespace MsSql.Client
 {
-    public interface IManifestResourceReader
+    internal interface IManifestResourceReader
     {
         string Read(Assembly assembly, string filename);
     }

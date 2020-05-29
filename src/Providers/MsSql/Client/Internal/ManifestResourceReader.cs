@@ -3,9 +3,9 @@ using System.Reflection;
 using System.Linq;
 using System.IO;
 
-namespace MsSql.Client
+namespace MsSql.Client.Internal
 {
-    public class ManifestResourceReader : IManifestResourceReader
+    internal class ManifestResourceReader : IManifestResourceReader
     {
         public string Read(Assembly assembly, string filename)
         {
