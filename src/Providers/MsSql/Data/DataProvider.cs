@@ -1,7 +1,6 @@
-using System.Linq;
 using Client.Data;
 using Client.Schema.Information;
-
+using System.Linq;
 namespace MsSql.Data
 {
     using Queries;
@@ -14,7 +13,7 @@ namespace MsSql.Data
         }
         public bool IsIntersect(ColumnInfo fk, ColumnInfo pk)
         {
-            return _client.Execute(new ExceptQuery(fk, pk)).Count() == 0;
+            return _client.Execute(new ExceptQuery(fk, pk)).First() == 0;
         }
     }
 }

@@ -3,7 +3,7 @@ using Client.Schema.Information;
 
 namespace MsSql.Data.Queries
 {
-    public class ExceptQuery : SqlQuery<string>
+    public class ExceptQuery : SqlQuery<int>
     {
         public ExceptQuery(ColumnInfo fk, ColumnInfo pk)
         {
@@ -14,7 +14,7 @@ namespace MsSql.Data.Queries
             Repalce("[PK_TABLE]",   pk.GetEntityName());
             Repalce("[PK_COLUMN]",  pk.GetName());
         }
-        protected override void Mapping(ISqlRowMapper<string> mapper)
+        protected override void Mapping(ISqlRowMapper<int> mapper)
         {
             mapper.For().From(0);
         }
