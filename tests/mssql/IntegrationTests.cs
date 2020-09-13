@@ -25,7 +25,7 @@ namespace tests.mssql
         public void Execute_SchemaQuery()
         {
             var query = new SchemaQuery("A");
-            var actual = client.Execute(query).FirstOrDefault(x=>x.TABLE_NAME == "ContactType");
+            var actual = client.Execute(query).FirstOrDefault(x => x.TABLE_NAME == "ContactType");
             Assert.True(actual != null, query.Query);
             Assert.True(actual.TABLE_NAME == "ContactType", $"The table name is {actual.TABLE_NAME}.");
         }
@@ -35,7 +35,7 @@ namespace tests.mssql
             var query = new RoutineQuery("A");
             try
             {
-                var actual = client.Execute(query).FirstOrDefault(x=>x.ROUTINE_NAME == "CustomerContactsInsert");
+                var actual = client.Execute(query).FirstOrDefault(x => x.ROUTINE_NAME == "CustomerContactsInsert");
                 Assert.True(actual != null, query.Query);
                 Assert.True(actual.ROUTINE_NAME == "CustomerContactsInsert", $"The routine name is {actual.ROUTINE_NAME}.");
             }
@@ -53,6 +53,21 @@ namespace tests.mssql
                 var actual = client.Execute(query).ToString();
                 Assert.True(actual != null, query.Query);
                 Assert.True(actual.Contains("CustomerContactsInsert"), $"The script {actual}.");
+            }
+            catch(System.Data.SqlClient.SqlException e)
+            {
+                Assert.True(false, e.Message + query.Query);
+            }
+        }
+        [Fact]
+        public void Execute_References()
+        {
+            var query = new ReferencesQuery("A", "Entity.CustomerContacts");
+            try
+            {
+                var actual = client.Execute(query).FirstOrDefault(x => x.referenced_entity_name == "Contact");
+                Assert.True(actual != null, query.Query);
+                Assert.True(actual.referenced_schema_name == "Data", $"The reference name is {actual.referenced_minor_name}.");
             }
             catch(System.Data.SqlClient.SqlException e)
             {

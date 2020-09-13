@@ -60,9 +60,14 @@ namespace MsSql.Schema
                 db.Views = schema.OfType<ViewInfo>()
                     .Select(x =>
                     {
-                        x.Source = _client.Execute(new ScriptQuery(db.Name, x.Name)).ToString();
+                        x.Source = _client
+                            .Execute(new ScriptQuery(db.Name, x.Name))
+                            .ToString();
 
-                        var references = _client.Execute(new ReferencesQuery(db.Name, x.Name));
+                        x.References = _client
+                            .Execute(new ReferencesQuery(db.Name, x.Name))
+                            .ToReferenceInfo(db)
+                            .ToArray();
 
                         return x;
                     })
@@ -73,12 +78,14 @@ namespace MsSql.Schema
                     { 
                         var name = GetName(x.ROUTINE_SCHEMA, x.ROUTINE_NAME);
 
-                        var references = _client.Execute(new ReferencesQuery(db.Name, name));
-
                         return new RoutineInfo
                         { 
                             Name = name,
-                            Source = _client.Execute(new ScriptQuery(db.Name, name)).ToString()
+                            Source = _client.Execute(new ScriptQuery(db.Name, name)).ToString(),
+                            References = _client
+                                        .Execute(new ReferencesQuery(db.Name, name))
+                                        .ToReferenceInfo(db)
+                                        .ToArray()
                         };
                     })
                     .ToArray();
